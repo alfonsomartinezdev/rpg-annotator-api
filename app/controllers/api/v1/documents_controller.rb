@@ -1,0 +1,24 @@
+class Api::V1::DocumentsController < ApplicationController
+  def show
+    @document = Document.find(params[:id])
+    @renderer = DocumentRenderer.new(@document)
+
+    render json: {
+      document: {
+        id: @document.id,
+        title: @document.title,
+        rendered_content: @renderer.render,
+        author: @document.author
+      },
+      annotations: @document.annotations.map do |annotation|
+        {
+          id: annotation.id,
+          fragment: annotation.fragment,
+          annotation_text: annotation.annotation_text,
+          author: annotation.author,
+          created_at: annotation.created_at
+        }
+      end
+    }
+  end
+end
