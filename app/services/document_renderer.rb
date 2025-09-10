@@ -29,10 +29,9 @@ class DocumentRenderer
 
     if @content.match?(pattern)
       highlighted_fragment = "<span class='annotation' data-id='#{annotation.id}'>\\1</span>"
-      replacement = "#{annotation.before_context}#{highlighted_fragment}#{annotation.after_context}"
 
       @content = @content.sub(pattern) do |match|
-        match.sub(/(#{fragment_regex})/, "<span class='annotation' data-id='#{annotation.id}'>\\1</span>")
+        match.sub(/(#{fragment_regex})/, highlighted_fragment)
       end
 
       puts "Successfully highlighted: #{annotation.fragment}"
