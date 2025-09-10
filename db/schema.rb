@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_10_192709) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_10_202636) do
+  create_table "annotations", force: :cascade do |t|
+    t.integer "document_id", null: false
+    t.text "fragment"
+    t.text "before_context"
+    t.text "after_context"
+    t.text "annotation_text"
+    t.string "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_annotations_on_document_id"
+  end
+
   create_table "documents", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -18,4 +30,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_10_192709) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "annotations", "documents"
 end
