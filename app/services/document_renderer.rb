@@ -7,12 +7,6 @@ class DocumentRenderer
 
   def render
     @annotations.each do |annotation|
-      puts "=== Annotation #{annotation.id} ==="
-      puts "Fragment: '#{annotation.fragment}'"
-      puts "Before: '#{annotation.before_context}'"
-      puts "After: '#{annotation.after_context}'"
-      puts "Full pattern: '#{annotation.before_context}#{annotation.fragment}#{annotation.after_context}'"
-      puts ""
       inject_annotation(annotation)
     end
     @content
@@ -33,10 +27,8 @@ class DocumentRenderer
       @content = @content.sub(pattern) do |match|
         match.sub(/(#{fragment_regex})/, highlighted_fragment)
       end
-
-      puts "Successfully highlighted: #{annotation.fragment}"
     else
-      puts "Pattern not found for: #{annotation.fragment}"
+      # puts "Pattern not found for: #{annotation.fragment}"
     end
   end
 end

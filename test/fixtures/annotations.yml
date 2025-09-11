@@ -1,17 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   document: one
-  fragment: MyText
-  before_context: MyText
-  after_context: MyText
-  annotation_text: MyText
-  author: MyString
-
-two:
-  document: two
-  fragment: MyText
-  before_context: MyText
-  after_context: MyText
-  annotation_text: MyText
-  author: MyString
+  fragment: "test document"
+  before_context: "This is a "
+  after_context: " with some text"
+  annotation_text: "Test annotation"
+  author: "Test User"
