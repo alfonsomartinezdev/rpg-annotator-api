@@ -1,24 +1,11 @@
-# README
+# RPG Annotator API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails API for creating text annotations on documents using fragment-based matching. Stores selected text with surrounding context to reliably locate and highlight annotations when rendering.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+bundle install
+rails db:setup
+rails server
+```
