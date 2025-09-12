@@ -1,7 +1,0 @@
-one:
-  document: one
-  fragment: "test document"
-  before_context: "This is a "
-  after_context: " with some text"
-  annotation_text: "Test annotation"
-  author: "Test User"

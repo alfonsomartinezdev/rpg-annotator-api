@@ -13,7 +13,7 @@ class Api::V1::DocumentsController < ApplicationController
       annotations: @document.annotations.map do |annotation|
         {
           id: annotation.id,
-          fragment: annotation.fragment,
+          selection_text: annotation.selection_text,
           annotation_text: annotation.annotation_text,
           author: annotation.author,
           created_at: annotation.created_at

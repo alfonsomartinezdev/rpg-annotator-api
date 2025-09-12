@@ -1,12 +1,12 @@
 class Api::V1::AnnotationsController < ApplicationController
+  before_action :set_document, only: [ :create ]
   def create
-    document = Document.find(params[:document_id])
-    annotation = document.annotations.build(annotation_params)
+    @annotation = @document.annotations.build(annotation_params)
 
-    if annotation.save
-      render json: annotation, status: :created
+    if @annotation.save
+      render json: @annotation, status: :created
     else
-      render json: { errors: annotation.errors }, status: :unprocessable_entity
+      render json: { errors: @annotation.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -27,8 +27,16 @@ class Api::V1::AnnotationsController < ApplicationController
   end
 
   private
-
+  def set_document
+    @document = Document.find(params[:document_id])
+  end
   def annotation_params
-    params.require(:annotation).permit(:fragment, :before_context, :after_context, :annotation_text, :author)
+    params.require(:annotation).permit(
+      :annotation_text,
+      :author,
+      :selection_text,
+      :start_offset,
+      :end_offset
+    )
   end
 end
