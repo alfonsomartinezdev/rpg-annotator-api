@@ -1,4 +1,8 @@
 class Api::V1::DocumentsController < ApplicationController
+  def index
+    @documents = Document.all
+    render json: @documents
+  end
   def show
     @document = Document.find(params[:id])
     @renderer = DocumentRenderer.new(@document)
