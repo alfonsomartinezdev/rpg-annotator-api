@@ -11,10 +11,15 @@ test:
   <<: *default
   database: rpg_annotator_api_test
 
-production:
+production: &production
   <<: *default
   url: <%= ENV["DATABASE_URL"] %>
 
 cable:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *production
+
+cache:
+  <<: *production
+
+queue:
+  <<: *production
