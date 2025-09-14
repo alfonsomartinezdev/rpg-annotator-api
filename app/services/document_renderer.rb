@@ -3,10 +3,24 @@ class DocumentRenderer
     @document = document
   end
 
+  # def self.debug_first
+  #   doc = Document.first
+  #   unless doc
+  #     puts "No documents in DB"
+  #     return nil
+  #   end
+  #
+  #   puts "Rendering document ##{doc.id} (#{doc.title rescue 'untitled'})"
+  #   renderer = new(doc)
+  #   output = renderer.render
+  #
+  #   # Print to console and return the rendered HTML
+  #   puts output
+  #   output
+  # end
   def render
     html = @document.content
-    # I don't know why ordering it in ascending order fixes the offset issue.
-    annotations = @document.annotations.order(end_offset: :asc)
+    annotations = @document.annotations.order(end_offset: :desc)
 
     return html if annotations.empty?
 
@@ -15,8 +29,10 @@ class DocumentRenderer
     annotations.each do |annotation|
       insert_annotation_span(doc, annotation)
     end
-
-    doc.to_html
+    doc.to_html(
+      indent: 0,
+      save_with: Nokogiri::XML::Node::SaveOptions::AS_XML
+    )
   end
 
   private
@@ -37,12 +53,12 @@ class DocumentRenderer
       end
 
       start_in_node = [ 0, start_offset - offset ].max
-      end_in_node = [ text_length, end_offset - offset ].min
+      end_in_node   = [ text_length, end_offset - offset ].min
 
       if start_in_node < end_in_node
         before = node.text[0...start_in_node]
         middle = node.text[start_in_node...end_in_node]
-        after = node.text[end_in_node..-1]
+        after  = node.text[end_in_node..-1]
 
         span = Nokogiri::XML::Node.new("span", doc)
         span["class"] = "annotation"
