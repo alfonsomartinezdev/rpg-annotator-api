@@ -19,7 +19,7 @@ rails server
 
 ### Documents
 - **GET `/api/v1/documents/:id`**  
-  Returns a document and its annotations.
+  Returns a document with its rendered content and its annotations. The rendered HTML includes span tags denoting annotated text.
 
   **Example response:**
   ```json
