@@ -1,6 +1,8 @@
 docs_dir = Rails.root.join('app', 'data', 'docs')
 html_files = Dir.glob(File.join(docs_dir, '*.html'))
 
+Document.destroy_all
+
 html_files.each do |file_path|
   filename = File.basename(file_path, '.html')
 
