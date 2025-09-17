@@ -1,6 +1,22 @@
+docs_dir = Rails.root.join('app', 'data', 'docs')
+html_files = Dir.glob(File.join(docs_dir, '*.html'))
 
-scp_content = File.read(Rails.root.join('app', 'data', 'scp_document.html'))
+html_files.each do |file_path|
+  filename = File.basename(file_path, '.html')
 
-document = Document.create!(title: "SCP-3847 Case File",
-  content: scp_content,
-  author: "Foundation Archives")
+  title = filename.split('_').map(&:capitalize).join(' ')
+
+  unless Document.exists?(title: title)
+    content = File.read(file_path)
+
+    Document.create!(
+      title: title,
+      content: content,
+      author: "Arthur Authorson"
+    )
+
+    puts "Created document: #{title}"
+  else
+    puts "Document already exists: #{title}"
+  end
+end
