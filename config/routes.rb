@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :documents, only: [ :index,:show ] do
+      resources :documents, only: [ :index, :show ] do
         resources :annotations, only: [ :create ]
       end
       resources :annotations, only: [ :update, :destroy ]

@@ -100,5 +100,4 @@ class DocumentRendererTest < ActiveSupport::TestCase
     annotated_fragment = rendered_content.match(/<span class="annotation"[^>]*>(.*?)<\/span>/)[1]
     assert_equal selection_text, annotated_fragment
   end
-
 end
